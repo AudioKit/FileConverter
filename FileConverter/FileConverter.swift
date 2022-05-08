@@ -22,16 +22,16 @@ class FileConverter: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.window?.delegate = self
-
+        
         openPanel.message = "Choose File to Convert..."
-        openPanel.allowedFileTypes = AKConverter.inputFormats
+        openPanel.allowedFileTypes = FormatConverter.inputFormats
 
-        for outType in AKConverter.outputFormats {
+        for outType in FormatConverter.outputFormats {
             formatPopUp.addItem(withTitle: outType)
         }
 
         savePanel.message = "Save As..."
-        savePanel.allowedFileTypes = AKConverter.outputFormats
+        savePanel.allowedFileTypes = FormatConverter.outputFormats
         savePanel.isExtensionHidden = false
 
         sampleRatePopUp.selectItem(withTitle: "44100")
@@ -63,7 +63,7 @@ class FileConverter: NSViewController {
     @IBAction func convertAudio(_ sender: NSButton) {
         guard let window = view.window else { return }
 
-        var options = AKConverter.Options()
+        var options = FormatConverter.Options()
 
         guard let format = formatPopUp.selectedItem?.title else { return }
         options.format = format
@@ -99,13 +99,13 @@ class FileConverter: NSViewController {
     }
 
     /// Do the conversion
-    private func convert(inputURL: URL, outputURL: URL, options: AKConverter.Options) {
-        let converter = AKConverter(inputURL: inputURL, outputURL: outputURL, options: options)
+    private func convert(inputURL: URL, outputURL: URL, options: FormatConverter.Options) {
+        let converter = FormatConverter(inputURL: inputURL, outputURL: outputURL, options: options)
         converter.start(completionHandler: { error in
             if let error = error {
-                AKLog("Error during convertion: \(error)")
+                print("Error during convertion: \(error)")
             } else {
-                AKLog("Conversion Complete!")
+                print("Conversion Complete!")
             }
         })
     }
