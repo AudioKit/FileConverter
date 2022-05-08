@@ -355,7 +355,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/AudioKIt/AudioKit";
 			requirement = {
-				branch = "v5-develop";
+				branch = main;
 				kind = branch;
 			};
 		};
